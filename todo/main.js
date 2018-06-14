@@ -101,9 +101,9 @@ function addToList(item, index) {
     tableBodyElement.appendChild(tableRowElement);
 }
 
-document.addEventListener('click',function(e){
+document.addEventListener('click', function(e){
     const clickedElement = e.target.id;
-    const actionButton = clickedElement.includes('remove') ? 'remove' : clickedElement.includes('edit') ? 'edit' : 'update';
+    const actionButton = clickedElement.includes('remove') ? 'remove' : clickedElement.includes('edit') ? 'edit' : clickedElement.includes('update') ? 'update' : '';
     switch (actionButton) {
         case 'edit':
             editItem(e);
@@ -118,6 +118,19 @@ document.addEventListener('click',function(e){
 });
 
 function editItem(el) {
+    const inputExists = document.querySelector('tbody input');
+    if (inputExists) {
+        const stringInputId = inputExists.id;
+        const inputId = stringInputId.replace('input-', '');
+        const hiddenItemText = document.querySelector(`#textHolder-${inputId}`);
+        const selectedEditButton = document.querySelector(`#edit-${inputId}`);
+        const selectedUpdateButton = document.querySelector(`#update-${inputId}`);
+
+        selectedEditButton.hidden = false;
+        selectedUpdateButton.hidden = true;
+        hiddenItemText.hidden = false;
+        inputExists.remove();
+    }
     const stringId = el.target.id;
     const id = stringId.replace('edit-','');
 
@@ -133,6 +146,7 @@ function editItem(el) {
     textHolder.hidden = true;
     
     const inputItemElement = document.createElement('input');
+    inputItemElement.id = `input-${id}`;
     inputItemElement.classList = 'form-control';
     inputItemElement.value = textHolder.innerText;
 
@@ -140,7 +154,28 @@ function editItem(el) {
 }
 
 function updateItem(el) {
-    console.log(1)
+    const stringId = el.target.id;
+    const id = stringId.replace('update-','');
+
+    const editButton = document.querySelector(`#edit-${id}`);
+    const updateButton = document.querySelector(`#update-${id}`);
+
+    editButton.hidden = false;
+    updateButton.hidden = true;
+
+    const itemElement = document.querySelector(`#item-${id}`);
+    
+    const textHolder = document.querySelector(`#textHolder-${id}`);
+    textHolder.hidden = false;
+    
+    const inputItemElement = document.querySelector(`#input-${id}`);
+
+    const newItemValue = inputItemElement.value;
+    todoArray[id] = newItemValue;
+    textHolder.innerText = newItemValue;
+    localStorage.setItem('todoArray', JSON.stringify(todoArray));
+
+    inputItemElement.remove();
 }
 
 function removeItem(el) {
