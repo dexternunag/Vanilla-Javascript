@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vanilla JS - Simple To Do Application</title>
+    
+    <link rel="stylesheet" href="bootswatch-lumen.min.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="/">To Do App</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="container todo-section mt-4">
+        <div class="todo-input-holder">
+            <!-- Success alert -->
+            <div class="alert alert-dismissible alert-success w-75" id="successAlert" hidden>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Well done!</strong> Successfully added an item.
+            </div>
+
+            <!-- Error alert -->
+            <div class="alert alert-dismissible alert-danger w-75" id="errorAlert" hidden>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Oh snap!</strong> Item is already in the list.
+            </div>
+            
+            <!-- Form -->
+            <form onsubmit="addTodoItem(event)">
+                <div class="form-group">
+                    <label for="newItem">Add an Item: </label>
+                    <div class="form-inline">
+                        <input class="form-control mr-3 w-75" id="newItem" type="text" placeholder="What should I do..." />
+                        <button class="btn btn-primary" type="submit">Add to List</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="todo-list-holder">
+            <h1>TO DOs: </h1>
+            <table class="table table-hover">
+                <tbody>
+                    <!-- <tr class="table-active">
+                        <td style="vertical-align: middle;">Active</td>
+                        <td class="d-flex justify-content-end">
+                            <button class="btn btn-info mr-1">Edit</button>
+                            <button class="btn btn-danger">Remove</button>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table> 
+        </div>
+    </section>
+    
+    <script src="main.js"></script>
+</body>
+</html>
